@@ -23,7 +23,7 @@ function challenge(){
   circle(0, 0, 50); 
   circle(0, height, 50); 
   circle(width, 0, 50); 
-  circle(0, 0, 50); 
-  circle(0, 0, 50); 
+  circle(width, height, 50); 
+  circle(width/2, height/2, 50); 
 }
 
