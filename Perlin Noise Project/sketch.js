@@ -4,12 +4,14 @@
 
 let rectWidth = 1; 
 let noiseTime = 0; 
+let noiseTimeStart;
 let NoiseOff = 0.01;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // for now, generate the terrain once 
-  generateTerrain();
+  //generateTerrain();
+  noiseTimeStart = noiseTime;
 }
 
 function generateTerrain(){
@@ -32,15 +34,39 @@ function generateTerrain(){
   }
 
 
+  noiseTimeStart += NoiseOff;
+  noiseTime = noiseTimeStart;
+
+
   rectMode(CORNERS); // revert to default 
 }
 
-function KeyPressed(){
-  if 
+function keyPressed(){
+  // decrease and icrease the rectangle size with left and right arrows
+  if(keyCode === 37){
+    if(rectWidth > 1){
+      rectWidth -=  1;
+    } 
+  }
+
+  if(keyCode === 39){
+    if(rectWidth < 10){
+     rectWidth += 1; 
+  }
+}
 }
 
 function draw() {
   // don' need to use draw UNTIL animating the terrain ( panning )
+  background(220);
+  generateTerrain();
+  drawFlag()
+}
 
-  // background(220);
+function drawFlag(x,y){
+  let largestPoint = Infinity;
+  let pointX = x
+  let pointY = y
+  rect(x,y,2,5);
+  triangle(x, y+= 3, x, y+= 5)
 }
