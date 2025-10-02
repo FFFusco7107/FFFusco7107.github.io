@@ -28,7 +28,7 @@ function draw() { // This IS a loop
   // animateWithFor();
 
   // manage current image to display
-  if (frameCount % 4 === 0){
+  if (frameCount % 4 === 0){ // limits the frames that the image animates(makes it slower)
     current += 1
   if (current > 8) current = 0
   }
