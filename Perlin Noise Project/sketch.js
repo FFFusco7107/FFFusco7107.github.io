@@ -18,6 +18,14 @@ function generateTerrain(){
   // Use a Loop to generate and draw several rectangles side to side
   // to look like 2D terrain 
   rectMode(CORNERS);
+  stroke(0);
+  noFill();
+  let highestPeak = 0;
+  let peakY = 0;
+  let peakX = 0;
+  let sumY = 0;
+  let AvgY;
+
 
   for(let x = 0; x < width; x += rectWidth){
     // generate a random height
@@ -31,11 +39,23 @@ function generateTerrain(){
 
     rect(x, height, x2, y2); // draw the rectangle
     noiseTime += NoiseOff;  // change noiseTime of each rectangle by noiseOff (0.01)
+
+    // check for highest peak
+    if(rectHeight > highestPeak){
+      highestPeak = rectHeight;
+      peakX = x2
+      peakY = y2
+    }
+    sumY = sumY + rectHeight
   }
+    
+
 
 
   noiseTimeStart += NoiseOff;
   noiseTime = noiseTimeStart;
+  drawFlag(peakX, peakY); 
+  drawAverage(AvgY);
 
 
   rectMode(CORNERS); // revert to default 
@@ -60,13 +80,21 @@ function draw() {
   // don' need to use draw UNTIL animating the terrain ( panning )
   background(220);
   generateTerrain();
-  drawFlag()
 }
 
 function drawFlag(x,y){
-  let largestPoint = Infinity;
-  let pointX = x
-  let pointY = y
-  rect(x,y,2,5);
-  triangle(x, y+= 3, x, y+= 5)
+  rectMode(CORNER); 
+  noStroke();
+  fill(0); 
+  rect(x,y,1,height*-0.05);
+  noStroke();
+  fill(255,0,0);
+  triangle(x+1.5,y+height*-0.05, x+1.5, y+height*-0.03, x+height*0.03, y+height*-0.04);
+}
+
+function drawAverage(y){
+  rectMode(CENTER);
+  noStroke();
+  fill(255,0,0,70);
+  rect(width/2, height-y, width, height*0.01); 
 }
