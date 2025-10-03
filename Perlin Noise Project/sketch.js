@@ -24,7 +24,7 @@ function generateTerrain(){
   let peakY = 0;
   let peakX = 0;
   let sumY = 0;
-  let AvgY;
+let AvgY;
 
 
   for(let x = 0; x < width; x += rectWidth){
@@ -47,8 +47,9 @@ function generateTerrain(){
       peakY = y2
     }
     sumY = sumY + rectHeight
+    AvgY = sumY/x  
   }
-    
+   
 
 
 
@@ -80,6 +81,7 @@ function draw() {
   // don' need to use draw UNTIL animating the terrain ( panning )
   background(220);
   generateTerrain();
+  
 }
 
 function drawFlag(x,y){
@@ -95,6 +97,6 @@ function drawFlag(x,y){
 function drawAverage(y){
   rectMode(CENTER);
   noStroke();
-  fill(255,0,0,70);
+  fill(255,0,0,75);
   rect(width/2, height-y, width, height*0.01); 
 }
