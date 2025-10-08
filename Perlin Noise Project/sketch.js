@@ -24,7 +24,7 @@ function generateTerrain(){
   let peakY = 0;
   let peakX = 0;
   let sumY = 0;
-let AvgY;
+  let AvgY;
 
 
   for(let x = 0; x < width; x += rectWidth){
