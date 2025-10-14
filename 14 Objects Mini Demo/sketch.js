@@ -30,11 +30,11 @@ function draw() {
   }
 }
 
-class Ball {
+class Ball{
   // 1. Constructor
   constructor(x, y){
     this.x = x;   this.y = y;
-    this.color(random(255),random(255),random(255));
+    this.c = color(random(255),random(255),random(255));
     this.size = 15;
     this.speed = random(2,10);
   }
