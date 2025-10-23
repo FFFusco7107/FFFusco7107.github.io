@@ -4,15 +4,16 @@
 let myVehicle;
 let eastbound = [];
 let westbound = [];
+let myLight;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for (i = 0; i < 20; i++){
-    eastbound.push(new Vehicle(300,round(random(0,1)), round(random(0,1))));
-    westbound.push(new Vehicle(300,round(random(0,1)), round(random(0,1))));
+    eastbound.push(new Vehicle(300,1, round(random(0,1))));
+    westbound.push(new Vehicle(300,0, round(random(0,1))));
   }
-  
+  myLight = new light();
 }
 
 function draw() {
@@ -24,7 +25,7 @@ function draw() {
   for (let w of westbound){
     w.action();
   }
- 
+  myLight.display();
 
 }
 
@@ -130,5 +131,34 @@ class Vehicle{
       this.changeColor();
     }
     this.display();
+
+  }
+}
+
+function mousePressed(){
+  if( mouseButton === LEFT){
+    if(keyIsDown(SHIFT)){
+      westbound.push(new Vehicle(300,0, round(random(0,1))));
+    }
+
+    else{
+      eastbound.push(new Vehicle(300,1, round(random(0,1))));
+    }
+  }
+}
+
+class light{
+  // Constructor
+  constructor(){
+    this.x = 100; this.y = 100; this.d = 100;
+  }
+
+
+  // Class methods
+  display(){
+    // create traffic light
+    stroke(25);
+    fill(0,255,0);
+    circle(this.x,this.y,this.d);
   }
 }
