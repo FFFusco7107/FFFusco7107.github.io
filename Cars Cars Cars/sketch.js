@@ -108,7 +108,7 @@ class Vehicle{
   }
 
   speedDown(){
-    if(this.xSpeed > 1){
+    if(this.xSpeed > 2){
       this.xSpeed -= 1
     }
   }
@@ -161,4 +161,5 @@ class light{
     fill(0,255,0);
     circle(this.x,this.y,this.d);
   }
+  
 }
