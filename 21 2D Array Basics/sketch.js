@@ -8,6 +8,7 @@ let grid = [
   [0, 0, 0, 255, 0],
   [255, 0, 255, 0, 255],
   [255, 255, 0, 255, 255],
+  [0, 255, 0, 0, 0],
   [0, 255, 0, 0, 0]
 ];
 
@@ -36,6 +37,12 @@ function mousePressed(){
 
   // ALWAYS: flip the "focused" tile
   flip(x,y);
+
+  // IF THEY EXIST: flip our neighbours (cross pattern)
+  if(x+1 < cols) flip(x+1,y);
+  if(y-1 >= 0) flip(x,y-1);
+  if(x-1 >= 0) flip(x-1,y);
+  if(y+1 < rows) flip(x,y+1);
 }
 
 function getCurrentX(){
