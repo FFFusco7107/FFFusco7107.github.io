@@ -18,7 +18,7 @@ let squareSize = 100;
 
 function setup() {
   createCanvas(cols*squareSize, rows*squareSize);
-
+  
 }
 
 function draw() {
@@ -70,13 +70,34 @@ function flip(x,y){
 function renderGrid(){
   // interpret the information in the 2D array, and draw a grid of
   // squares on the screen to reflect it
+  for(let y = 0;y < rows; y++){
+    for(let x = 0; x < cols; x++){
+      let fillColor = grid[y][x];
+      fill(fillColor);
+      square(x*squareSize, y*squareSize, squareSize);
+    }
+  }
+}
+
+function win(){
+  // if all boxes are the same on the screen say " you win!" across
+  // the screen
   let gridColor = grid[0][0];
   for(let y = 0;y < rows; y++){
     for(let x = 0; x < cols; x++){
       let fillColor = grid[y][x];
-      if(fillcolor !== gridColor)
-      fill(fillColor);
-      square(x*squareSize, y*squareSize, squareSize);
+      if(gridColor !== fillColor){
+        return;
+      }
     }
+  if(gridColor === 0){
+      fill(255);
+    }
+  else{
+    fill(0);
+  } 
+
+  text("YOU WIN!", width/2, height/2);
+    
   }
 }
