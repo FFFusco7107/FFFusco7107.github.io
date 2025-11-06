@@ -18,13 +18,15 @@ let squareSize = 100;
 
 function setup() {
   createCanvas(cols*squareSize, rows*squareSize);
-  
+  randomGrid();
 }
 
 function draw() {
   background(220);
   renderGrid();
+  win();
   print(getCurrentX(), getCurrentY());
+  overlay();
 }
 
 function mousePressed(){
@@ -79,6 +81,30 @@ function renderGrid(){
   }
 }
 
+function randomGrid(){
+  for(let y = 0;y < rows; y++){
+    for(let x = 0; x < cols; x++){
+      grid[y][x] = floor(random(0,2))*255;
+    }
+  }
+}
+
+function overlay(){
+  let x = getCurrentX();
+  let y = getCurrentY();
+  fill(0,255,0,50);
+  if(keyIsDown(SHIFT)){
+    square(x*squareSize, y*squareSize, squareSize);
+  }
+  else{
+    if(x+1 < cols) flip(x+1,y);
+    if(y-1 >= 0) flip(x,y-1);
+    if(x-1 >= 0) flip(x-1,y);
+    if(y+1 < rows) flip(x,y+1);
+  }
+    
+}
+
 function win(){
   // if all boxes are the same on the screen say " you win!" across
   // the screen
@@ -89,15 +115,15 @@ function win(){
       if(gridColor !== fillColor){
         return;
       }
+      if(gridColor === 0){
+        fill(255);
+      }
+      else{
+        fill(0);
+      }
     }
-  if(gridColor === 0){
-      fill(255);
-    }
-  else{
-    fill(0);
-  } 
-
-  text("YOU WIN!", width/2, height/2);
     
   }
+  textSize(30);
+  text("YOU WIN!", width/2 -75, height/2); 
 }
