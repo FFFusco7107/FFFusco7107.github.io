@@ -3,15 +3,21 @@
 // Nov 13 2025
 
 let chip; 
+let race; 
+let nuit;
+let hand;
 
 function setup() {
   loadAssets();
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600,2400);
   
 }
 
 async function loadAssets(){
   chip = await loadImage("assets/chip.jpg");
+  race = await loadImage("assets/race.jpg");
+  nuit = await loadImage("assets/nuit.jpg");
+  hand = await loadImage("assets/hand.jpg");
 }
 
 function setPixelOneD(pos, r, g, b){
@@ -32,17 +38,32 @@ function setPixel(x,y,r,g,b){
 function draw() {
   background(220);
   image(chip,0,0);
+  image(race,0,600);
+  image(nuit,0,1200);
+  image(hand,0,1800);
   loadPixels();
   // r,g,b picture
   majorityColor();
+  noGreen();
+  fiveColor();
+  mirror();
   updatePixels();
+}
+
+function getAvg(x,y){
+  // return the average intensity of pixel(x,y);
+  let i = (width*y + x) * 4
+  let r = pixels[i];
+  let g = pixels[i+1];
+  let b = pixels[i+2];
+  return (r+g+b)/3;
 }
 
 function majorityColor(){
   // set pixels to red,greed,or blue based on rgb values
   // which ever value is the largest is the color that is shown
   for(let x=0; x<width; x++){
-    for(let y=0; y<height; y++){
+    for(let y=0; y< 600; y++){
       let i = (width*y + x) * 4
       let r = pixels[i];
       let g = pixels[i+1];
@@ -62,3 +83,56 @@ function majorityColor(){
     }
   }
 }
+
+function noGreen(){
+  // right side pixels have no green
+  for(let x=0; x<width; x++){
+    for(let y=600; y<1200; y++){
+      let i = (width*y + x) * 4
+      let r = pixels[i];
+      let g = pixels[i+1];
+      let b = pixels[i+2];
+      if (x > width/2){
+        setPixel(x,y,r,0,b);
+      }
+    }
+  }
+}
+
+function fiveColor(){
+  for(let x=0; x<width; x++){
+    for(let y=1200; y<1800; y++){
+      let avg = getAvg(x,y);
+      if ( avg >= 205){
+        setPixel(x,y,170,230,220);
+      }
+      else if( avg >= 155){
+        setPixel(x,y,105,150,210);
+      }
+      else if( avg >= 105){
+        setPixel(x,y,120,180,60);
+      }
+      else if( avg >= 55){
+        setPixel(x,y,130,30,130);
+      }
+      else{
+        setPixel(x,y,90,10,50);
+      }
+    }
+  }
+}
+
+function mirror(){
+  for(let x=0; x<width; x++){
+    for(let y=1800; y<height; y++){
+      let i = (width*y + x) * 4
+      let r = pixels[i];
+      let g = pixels[i+1];
+      let b = pixels[i+2];
+      if(x > width/2){
+        setPixel(width-x,y,r,g,b);
+      }
+    }
+  }
+}
+

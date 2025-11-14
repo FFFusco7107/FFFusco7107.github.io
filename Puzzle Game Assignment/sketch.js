@@ -97,10 +97,11 @@ function overlay(){
     square(x*squareSize, y*squareSize, squareSize);
   }
   else{
-    if(x+1 < cols) flip(x+1,y);
-    if(y-1 >= 0) flip(x,y-1);
-    if(x-1 >= 0) flip(x-1,y);
-    if(y+1 < rows) flip(x,y+1);
+    square(x*squareSize, y*squareSize, squareSize);
+    if(x+1 < cols) square((x+1)*squareSize,y*squareSize, squareSize);
+    if(y-1 >= 0) square(x*squareSize,(y-1)*squareSize, squareSize);
+    if(x-1 >= 0) square((x-1)*squareSize,y*squareSize, squareSize);
+    if(y+1 < rows) square(x*squareSize,(y+1)*squareSize, squareSize);
   }
     
 }
