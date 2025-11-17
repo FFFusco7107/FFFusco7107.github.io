@@ -6,10 +6,11 @@ let chip;
 let race; 
 let nuit;
 let hand;
+let butterfly;
 
 function setup() {
   loadAssets();
-  createCanvas(600,2400);
+  createCanvas(600,600);
   
 }
 
@@ -18,6 +19,7 @@ async function loadAssets(){
   race = await loadImage("assets/race.jpg");
   nuit = await loadImage("assets/nuit.jpg");
   hand = await loadImage("assets/hand.jpg");
+  butterfly = await loadImage("assets/butterfly.jpg");
 }
 
 function setPixelOneD(pos, r, g, b){
@@ -37,16 +39,19 @@ function setPixel(x,y,r,g,b){
 
 function draw() {
   background(220);
-  image(chip,0,0);
-  image(race,0,600);
-  image(nuit,0,1200);
-  image(hand,0,1800);
+  // image(chip,0,0);
+  // image(race,0,600);
+  image(nuit,0,0);
+  // image(hand,0,1800);
+  // image(butterfly,0,0);
+
   loadPixels();
   // r,g,b picture
-  majorityColor();
-  noGreen();
-  fiveColor();
-  mirror();
+  // majorityColor();
+  // noGreen();
+  // fiveColor();
+  // mirror();
+  // rotateImg();
   updatePixels();
 }
 
@@ -136,3 +141,50 @@ function mirror(){
   }
 }
 
+function rotateImg(){
+  let srcPixels = structuredClone(pixels);
+  for(let x=0; x<width; x++){
+    for(let y=0; y<height; y++){
+      let i = (width*y + x) * 4
+      let r = srcPixels[i];
+      let g = srcPixels[i+1];
+      let b = srcPixels[i+2];
+      if ( x < width/2 && y < height/2) setPixel(x+width/2,y,r,g,b);
+      else if(x > width/2 && y < height/2) setPixel(x,y+height/2,r,g,b);
+      else if(x > width/2 && y > height/2) setPixel(x-width/2,y,r,g,b);
+      else setPixel(x,y-height/2,r,g,b);
+      
+
+    }
+  }
+}
+
+function getAvgBlur(x,y,r){
+  let valueX = 0;
+  let valueY = 0; 
+  for(let i = 0; i < r; r++){
+
+  }
+}
+
+function blur(r){
+  let srcPixels = structuredClone(pixels);
+  let radius = r;
+  for(let x=0; x<width; x++){
+    for(let y=0; y<height; y++){
+      let i = (width*y + x) * 4
+      let r = srcPixels[i];
+      let g = srcPixels[i+1];
+      let b = srcPixels[i+2];
+      let sumR = r;
+      let sumG = g;
+      let sumB = b;
+      for(let t = -radius; t <= radius; t++){
+        let i = (width*(y+t + x+t)) * 4;
+        sumR += srcPixels[i];
+        sumG += srcPixels[i+1];
+        sumB += srcPixels[i+2];
+      }
+    }
+  }
+}
