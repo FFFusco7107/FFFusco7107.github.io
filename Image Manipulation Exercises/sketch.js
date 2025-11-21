@@ -52,6 +52,7 @@ function draw() {
   // fiveColor();
   // mirror();
   // rotateImg();
+  blur(10);
   updatePixels();
 }
 
@@ -181,10 +182,19 @@ function blur(r){
       let sumB = b;
       for(let t = -radius; t <= radius; t++){
         let i = (width*(y+t + x+t)) * 4;
+        if()
+        sumR += srcPixels[i];
+        sumG += srcPixels[i+1];
+        sumB += srcPixels[i+2];
+        i = (width*(y-t + x+t)) * 4;
         sumR += srcPixels[i];
         sumG += srcPixels[i+1];
         sumB += srcPixels[i+2];
       }
+      let avgR = sumR/(radius*4);
+      let avgG = sumG/(radius*4);
+      let avgB = sumB/(radius*4);
+      setPixel(x,y,avgR,avgG,avgB);
     }
   }
 }
