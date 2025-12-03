@@ -45,7 +45,7 @@ class Ball{
     this.vel.limit(20); // cant go outside -20 and 20
     this.pos.add(this.vel);
 
-    // wall-floor nounce
+    // wall-floor bounce
     if(this.pos.x < 0 || this.pos.x > width){
       this.vel.x *= -1; 
     }
