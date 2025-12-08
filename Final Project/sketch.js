@@ -2,19 +2,19 @@
 // Lucas F.
 // Dec 2 2025
 
-let cube;
+let player;
+let square;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  cube = new Cube(width*0.2,height*0.7, 45);
+  createCanvas(windowWidth,windowHeight);
+  player = new Cube(width*0.2,height*0.7, 45);
+  square = new box;
 }
 
 function draw() {
   background(220);
-  noStroke();
-  
-  cube.display();
-  cube.move();
+  player.display();
+  player.move();
    
   // ground
   fill(0);
@@ -22,7 +22,7 @@ function draw() {
 
   // spacebar -> jump
   if(keyIsDown(32)){
-    cube.jump();
+    player.jump();
     console.log("pressed");
   }
 }
@@ -43,10 +43,14 @@ class Cube{
     push();
     translate(this.pos.x + this.s/2, this.pos.y - this.s /2);
     rotate(radians(this.rotation));
-    fill(255,0,0);
+    strokeWeight(2);
+    fill(255,200,50);
     square(-this.s /2, -this.s /2, this.s);
-    fill(0,255,0);
-    square(-this.s/2 + 5,this.s/2 - this.s, this.s - 30)
+    fill(0,255,255);
+    square(-this.s/2 + 9,this.s/2 - this.s + 9, this.s - 38);
+    square(-this.s/2 + 28,this.s/2 - this.s + 9, this.s - 38);
+    rectMode(CENTER);
+    rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
   }
   move(){
@@ -78,9 +82,21 @@ class Cube{
     // can only jump when on ground
     if(this.onGround){ 
       this.vel.y = -6;
-      this.rotationSpeed = 1.6; // rotates 1.6 degrees every frame
+      this.rotationSpeed = 3; // rotates 1.6 degrees every frame
       this.onGround = false;
     }
   }
 }
 
+class box{
+  constructor(){
+    this.x = 100; this.y = height*0.7 -45; this.s = 45;
+  }
+
+  display(){
+    fill(255);
+    strokeWeight(1);
+    fill(0);
+    square(this.x,this.y,this.s)
+  }
+}
