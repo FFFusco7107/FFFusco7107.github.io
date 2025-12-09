@@ -3,18 +3,29 @@
 // Dec 2 2025
 
 let player;
-let square;
+let platform;
+let level = [];
+let levelSpeed = 2;
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   player = new Cube(width*0.2,height*0.7, 45);
-  square = new box;
+  level.push(new box(400,height*0.7 - 45, 45));
+  
+  level.push(new box(535,height*0.7 - 45, 45));
+  
+  level.push(new box(535,height*0.7 - 90, 45));
 }
 
 function draw() {
   background(220);
-  player.display();
+  // platform.display();
+  player.display(); 
   player.move();
+  for(let o of level){
+    o.display();
+    o.slide();
+  } 
    
   // ground
   fill(0);
@@ -25,6 +36,8 @@ function draw() {
     player.jump();
     console.log("pressed");
   }
+
+  
 }
 
 class Cube{
@@ -60,7 +73,7 @@ class Cube{
 
       // If on ground
       if(this.pos.y >= height*0.7){
-        this.pos.y = height*0.7;
+        this.pos.y = height*0.7; 
         this.vel.y = 0;
 
         if(!this.onGround){
@@ -89,14 +102,29 @@ class Cube{
 }
 
 class box{
-  constructor(){
-    this.x = 100; this.y = height*0.7 -45; this.s = 45;
+  constructor(x,y,s){
+    this.x = x; this.y = y; this.s = s;
   }
 
   display(){
-    fill(255);
-    strokeWeight(1);
+    push();
+    strokeWeight(2);
+    stroke(255);
     fill(0);
-    square(this.x,this.y,this.s)
+    square(this.x,this.y,this.s);
+    pop();
+
+
+  }
+
+  slide(){
+
+    this.x -= levelSpeed;
   }
 }
+
+// class spike{
+//   constructor(x,y,s){
+//     this.x = x; this.y = y; 
+//   }
+// }
