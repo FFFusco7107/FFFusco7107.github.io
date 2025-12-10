@@ -5,31 +5,31 @@
 let player;
 let platform;
 let level = [];
-let levelSpeed = 2;
+let levelSpeed = 9;
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   player = new Cube(width*0.2,height*0.7, 45);
-  level.push(new box(400,height*0.7 - 45, 45));
+  level.push(new box(500,height*0.7 - 45, 45));
+  level.push(new spike(700,height*0.7));
+  level.push(new spike(745,height*0.7));
+  level.push(new spike(790,height*0.7));
   
-  level.push(new box(535,height*0.7 - 45, 45));
-  
-  level.push(new box(535,height*0.7 - 90, 45));
 }
 
 function draw() {
-  background(220);
+  background(220); 
   // platform.display();
   player.display(); 
   player.move();
-  for(let o of level){
+  for(let o of level){ 
     o.display();
     o.slide();
-  } 
+  }  
    
-  // ground
+  // ground 
   fill(0);
-  rect(0, height*0.7, width, height);
+  rect(0, height*0.7, width, height);  
 
   // spacebar -> jump
   if(keyIsDown(32)){
@@ -37,7 +37,7 @@ function draw() {
     console.log("pressed");
   }
 
-  
+   
 }
 
 class Cube{
@@ -45,7 +45,7 @@ class Cube{
   constructor(x,y,s){
     this.s = s;
     this.pos = createVector(x,y);
-    this.g = createVector(0,0.2);
+    this.g = createVector(0,0.4);
     this.vel = createVector(0,0);
 
     this.rotation = 0;
@@ -94,8 +94,8 @@ class Cube{
   jump(){
     // can only jump when on ground
     if(this.onGround){ 
-      this.vel.y = -6;
-      this.rotationSpeed = 3; // rotates 1.6 degrees every frame
+      this.vel.y = -9;
+      this.rotationSpeed = 4; // rotates 1.6 degrees every frame
       this.onGround = false;
     }
   }
@@ -104,7 +104,7 @@ class Cube{
 class box{
   constructor(x,y,s){
     this.x = x; this.y = y; this.s = s;
-  }
+  }  
 
   display(){
     push();
@@ -123,8 +123,22 @@ class box{
   }
 }
 
-// class spike{
-//   constructor(x,y,s){
-//     this.x = x; this.y = y; 
-//   }
-// }
+class spike{
+  constructor(x,y,s){
+    this.x = x; this.y = y; 
+  }
+
+  display(){
+    push();
+    strokeWeight(2);
+    stroke(255);
+    fill(0);
+    triangle(this.x,this.y, this.x + 45, this.y, this.x + 22.5, this.y - 45);
+    pop();
+  }
+
+  slide(){
+
+    this.x -= levelSpeed;
+  }
+}
