@@ -5,20 +5,29 @@
 let player;
 let platform;
 let level = [];
-let levelSpeed = 6;
+let levelSpeed = 9;
+let mySound;
+let gameStart = false;
 
-function setup() {
+async function loadMusic(){
+  mySound = await loadSound('assets/1-01. Stereo Madness.mp3');
+}
+
+function setup() { 
   createCanvas(windowWidth,windowHeight);
+  loadMusic();
   player = new Cube(width*0.2,height*0.7, 45);
   level.push(new box(500,height*0.7 - 45, 45));
-  level.push(new spike(700,height*0.7));
+  level.push(new spike(1150,height*0.7));
+  level.push(new spike(1,height*0.7));
 
   
 }
 
 function draw() {
   background(220); 
-  // platform.display();
+  if (gameStart){
+   // platform.display();
   player.display(); 
   player.move();
   for(let o of level){ 
@@ -34,8 +43,21 @@ function draw() {
   if(keyIsDown(32)){
     player.jump();
     console.log("pressed");
+  } 
+    
   }
-   
+
+  else{
+    text("space to start", width/2, height/2);
+  }
+  
+}
+
+function keyPressed(){
+  if(!gameStart){
+    gameStart = true;
+    mySound.play();
+  }
 }
 
 class Cube{
@@ -43,7 +65,7 @@ class Cube{
   constructor(x,y,s){
     this.s = s;
     this.pos = createVector(x,y);
-    this.g = createVector(0,0.5);
+    this.g = createVector(0,0.9);
     this.vel = createVector(0,0);
 
     this.rotation = 0;
@@ -59,7 +81,7 @@ class Cube{
     square(-this.s /2, -this.s /2, this.s);
     fill(0,255,255);
     square(-this.s/2 + 9,this.s/2 - this.s +  9, this.s - 38);
-    square(-this.s/2 + 28,this.s/2 - this.s + 9, this.s - 38);
+    square(-this.s/2 + 28,this.s/2 - this.s + 9, this.s - 38); 
     rectMode(CENTER);
     rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
@@ -92,14 +114,14 @@ class Cube{
   jump(){
     // can only jump when on ground
     if(this.onGround){ 
-      this.vel.y = -10;
-      this.rotationSpeed = 4.5; // rotates 1.6 degrees every frame
+      this.vel.y = -14;
+      this.rotationSpeed = 6; // rotates 1.6 degrees every frame
       this.onGround = false;
-    }
+    }  
 
   } 
 }
-
+ 
 class box{
   constructor(x,y,s){
     this.x = x; this.y = y; this.s = s; 
