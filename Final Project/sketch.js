@@ -18,16 +18,28 @@ function setup() {
   loadMusic();
   player = new Cube(width*0.2,height*0.7, 45);
   level.push(new box(500,height*0.7 - 45, 45));
-  level.push(new spike(1150,height*0.7));
-  level.push(new spike(1,height*0.7));
+  level.push(new spike(1060,height*0.7,0));
+  level.push(new spike(1,height*0.7,0));
+  level.push(new spike( 1710,height*0.7, 45/2));
+  level.push(new spike( 1755,height*0.7, 0));
+  level.push(new spike( 2475,height*0.7, 0));
+  level.push(new spike( 2520,height*0.7, 0));
+  level.push(new box(2565,height*0.7 - 45, 45));
+  level.push(new box(2745,height*0.7 - 45, 45));
+  level.push(new box(2745,height*0.7 - 90, 45));
+  level.push(new box(2925,height*0.7 - 45, 45));
+  level.push(new box(2925,height*0.7 - 90, 45));
+  level.push(new box(2925,height*0.7 - 135, 45));
 
   
 }
 
+
+
 function draw() {
   background(220); 
   if (gameStart){
-   // platform.display();
+  // platform.display();
   player.display(); 
   player.move();
   for(let o of level){ 
@@ -90,6 +102,8 @@ class Cube{
       this.vel.add(this.g);
       this.vel.limit(100);
       this.pos.add(this.vel);
+    // collisions
+
 
       // If on ground
       if(this.pos.y >= height*0.7){
@@ -119,6 +133,8 @@ class Cube{
       this.onGround = false;
     }  
 
+
+
   } 
 }
  
@@ -146,7 +162,7 @@ class box{
 
 class spike{
   constructor(x,y,s){
-    this.x = x; this.y = y; 
+    this.x = x; this.y = y; this.s = s;
   }
 
   display(){
@@ -154,7 +170,7 @@ class spike{
     strokeWeight(2);
     stroke(255);
     fill(0);
-    triangle(this.x,this.y, this.x + 45, this.y, this.x + 22.5, this.y - 45);
+    triangle(this.x,this.y, this.x + 45, this.y, this.x + 22.5, this.y - 45 + this.s);
     pop();
   }
 
