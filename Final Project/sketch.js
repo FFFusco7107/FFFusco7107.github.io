@@ -17,8 +17,14 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   loadMusic();
   player = new Cube(width*0.2,height*0.7, 45);
+  initLevel();
+
+  
+}
+
+function initLevel(){
   level=[];
-  level.push(new box(500,height*0.7 - 45, 45));
+  level.push(new box(600,height*0.7 - 45, 300));
   level.push(new spike(1060,height*0.7,0));
   level.push(new spike(1,height*0.7,0));
   level.push(new spike( 1710,height*0.7, 45/2));
@@ -31,8 +37,6 @@ function setup() {
   level.push(new box(2925,height*0.7 - 45, 45));
   level.push(new box(2925,height*0.7 - 90, 45));
   level.push(new box(2925,height*0.7 - 135, 45));
-
-  
 }
 
 
@@ -99,13 +103,11 @@ class Cube{
     rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
   }
-  move(){
+  move(x,y){
       this.vel.add(this.g);
       this.vel.limit(100);
       this.pos.add(this.vel);
-    // collisions
-
-
+    
       // If on ground
       if(this.pos.y >= height*0.7){
         this.pos.y = height*0.7; 
@@ -124,18 +126,28 @@ class Cube{
         this.onGround = false;
         this.rotation += this.rotationSpeed;
       } 
+      // collisions
       for(let o of level){
          let hit = collideRectRect(this.pos.x,this.pos.y,this.s, this.s, o.x, o.y, o.s, o.s);
         if(hit){
           if(o instanceof box){
             print("box col");
+            if (this.pos.y - o.y < 1){
+              this.vel.y = 0;
+              this.rotation = round(this.rotation/90) * 90;
+              this.rotationSpeed = 0;
+              this.pos.y = o.y;
+            }
+            
           }
           else if(o instanceof spike){ 
             print("spike col");
             //to reset the level
             //just reset or re-create each var and item
-            Cube(width*0.2,height*0.7, 45);
-            this.x = width*0.2; this.y = height*0.7;
+            initLevel();
+            // sets cube right side up
+            this.rotation = 0;
+            
           }
         }
       }
