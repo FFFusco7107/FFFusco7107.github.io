@@ -15,6 +15,7 @@ async function loadMusic(){
 
 function setup() { 
   createCanvas(windowWidth,windowHeight);
+  // frameRate(10);
   loadMusic();
   player = new Cube(width*0.2,height*0.7, 45);
   initLevel();
@@ -24,16 +25,19 @@ function setup() {
 
 function initLevel(){
   level=[];
-  level.push(new box(600,height*0.7 - 45, 300));
+  // level.push(new box(600,height*0.7 - 45, 800));
+  level.push(new spike(800,height*0.7,0));
+  level.push(new spike(845,height*0.7,0));
+  level.push(new spike(890,height*0.7,0));
+
   level.push(new spike(1060,height*0.7,0));
-  level.push(new spike(1,height*0.7,0));
   level.push(new spike( 1710,height*0.7, 45/2));
   level.push(new spike( 1755,height*0.7, 0));
   level.push(new spike( 2475,height*0.7, 0));
   level.push(new spike( 2520,height*0.7, 0));
   level.push(new box(2565,height*0.7 - 45, 45));
-  level.push(new box(2745,height*0.7 - 45, 45));
-  level.push(new box(2745,height*0.7 - 90, 45));
+  level.push(new box(2790,height*0.7 - 45, 45));
+  level.push(new box(2790,height*0.7 - 90, 45));
   level.push(new box(2925,height*0.7 - 45, 45));
   level.push(new box(2925,height*0.7 - 90, 45));
   level.push(new box(2925,height*0.7 - 135, 45));
@@ -45,22 +49,24 @@ function draw() {
   background(220); 
   if (gameStart){
   // platform.display();
+  
+  
   player.display(); 
   player.move();
   for(let o of level){ 
     o.display();
     o.slide();  
   }  
-   
-  // ground 
-  fill(0);
-  rect(0, height*0.7, width, height);
-
   // spacebar -> jump
   if(keyIsDown(32)){
     player.jump();
     console.log("pressed");
-  } 
+  }  
+  // ground 
+  fill(0);
+  rect(0, height*0.7, width, height);
+
+  
     
   }
 
@@ -103,7 +109,7 @@ class Cube{
     rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
   }
-  move(x,y){
+  move(){
       this.vel.add(this.g);
       this.vel.limit(100);
       this.pos.add(this.vel);
@@ -114,6 +120,7 @@ class Cube{
         this.vel.y = 0;
 
         if(!this.onGround){
+          print("ground collision")
           this.onGround = true;
 
           // snaps the cube to nearest right angle (90,180,270,360...)
@@ -126,17 +133,29 @@ class Cube{
         this.onGround = false;
         this.rotation += this.rotationSpeed;
       } 
+      // stroke("red");
+      // line(0,this.pos.y,width,this.pos.y);
       // collisions
       for(let o of level){
-         let hit = collideRectRect(this.pos.x,this.pos.y,this.s, this.s, o.x, o.y, o.s, o.s);
+         let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s);
+         text(player.onGround + " " + player.vel.y +" " + player.pos.y +" " + o.y , width/2, height*0.2);
+        //  stroke("green");
+        //  line(0,o.y,width,o.y);
         if(hit){
           if(o instanceof box){
             print("box col");
-            if (this.pos.y - o.y < 1){
+            if (this.pos.y - o.y < 45){
               this.vel.y = 0;
-              this.rotation = round(this.rotation/90) * 90;
-              this.rotationSpeed = 0;
-              this.pos.y = o.y;
+              if(!this.onGround){
+                this.onGround = true;
+                this.rotation = round(this.rotation/90) * 90;
+                this.rotationSpeed = 0;
+              }
+              this.pos.y = o.y; 
+            }
+            else{
+              initLevel();
+              this.rotation = 0;
             }
             
           }
@@ -153,21 +172,22 @@ class Cube{
       }
 
       
-
+ 
   } 
   jump(){
     // can only jump when on ground
-    if(this.onGround){ 
-      this.vel.y = -14;
+    if(this.onGround){
+      // this.pos.y -= 1 
+      this.vel.y = -12;
       this.rotationSpeed = 6; // rotates 1.6 degrees every frame
       this.onGround = false;
     }  
-    
+     
 
 
   } 
 }
- 
+  
 class box{
   constructor(x,y,s){
     this.x = x; this.y = y; this.s = s; 
