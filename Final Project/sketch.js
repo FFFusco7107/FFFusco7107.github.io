@@ -30,24 +30,54 @@ function initLevel(){
   // level.push(new box(600,height*0.7 - 45, 800));
 
   level.push(new spike(1060,g,0));
-  level.push(new spike( 1710,g, s/2));
-  level.push(new spike( 1755,g, 0));
-  level.push(new spike( 2475,g, 0));
-  level.push(new spike( 2520,g, 0));
-  level.push(new box(2565,g - 45, s));
-  level.push(new box(2745,g - 45, s));
-  level.push(new box(2745,g - 90, s));
-  level.push(new box(2925,g - 45, s));
-  level.push(new box(2925,g - 90, s));
-  level.push(new box(2925,g - 135, s));
-  level.push(new spike( 4230,g, 0));
-  level.push(new box(4500,g - 45, s*8));
-  level.push(new spike( 4860,g, s/2));
-  level.push(new spike( 4905,g, s/2));
-  level.push(new spike( 4950,g, s/2));
-  level.push(new box(4995,g - 45, s*10));
-  level.push(new spike(5197,g - 45, 0));
-
+  level.push(new spike( s*38,g, s/2));
+  level.push(new spike( s*39,g, 0));
+  level.push(new spike( s*55,g, 0));
+  level.push(new spike( s*56,g, 0));
+  level.push(new box(s*57,g - 45, s,s));
+  level.push(new box(s*61,g - 45, s,s));
+  level.push(new box(s*61,g - 90, s,s));
+  level.push(new box(s*65,g - 45, s,s));
+  level.push(new box(s*65,g - 90, s,s));
+  level.push(new box(s*65,g - 135, s,s));
+  level.push(new spike( s*94,g, 0));
+  level.push(new box(s*100,g - 45, s*8,s));
+  level.push(new spike( s*108,g, s/2));
+  level.push(new spike( s*109,g, s/2));
+  level.push(new spike( s*110,g, s/2));
+  level.push(new box(s*111,g - 45, s*10,s));
+  level.push(new spike(s*115 + (4/9),g - 45, 0));
+  level.push(new spike( s*121,g, s/2));
+  level.push(new spike( s*122,g, s/2));
+  level.push(new spike( s*123,g, s/2));
+  level.push(new box(s*124,g - 90, s*10,s*10));
+  level.push(new spike(s*129,g - 90, 0));
+  level.push(new box(s*137,g - 135, s,s/2));
+  level.push(new box(s*141,g - 180, s,s/2));
+  level.push(new box(s*145,g - 225, s,s/2));
+  level.push(new box(s*149,g - 270, s,s/2));
+  level.push(new box(s*153,g - 315, s,s/2));
+  level.push(new box(s*157,g - 270, s,s));
+  level.push(new box(s*158,g - 270, s,s));
+  level.push(new box(s*159,g - 270, s*20,s*20));
+  level.push(new spike(s*164,g - 270, 0));
+  level.push(new spike(s*165,g - 270, 0));
+  level.push(new spike(s*166,g - 270, 0));
+  level.push(new spike(s*167,g - 270, 0));
+  level.push(new box(s*165,g - 340, s,s/2));
+  level.push(new box(s*166,g - 340, s,s/2));
+  level.push(new spike(s*172,g - 270, 0));
+  level.push(new spike(s*173,g - 270, 0));
+  level.push(new spike(s*174,g - 270, 0));
+  level.push(new spike(s*175,g - 270, 0));
+  level.push(new box(s*173,g - 340, s,s/2));
+  level.push(new box(s*174,g - 340, s,s/2));
+  level.push(new box(s*179,g - 225, s*10,s*10));
+  level.push(new spike(s*182,g - 315, 0));
+  level.push(new spike(s*183,g - 315, 0));
+  level.push(new spike(s*184,g - 315, 0));
+  level.push(new spike(s*185,g - 315, 0));
+  level.push(new box(s*189,g - 270, s*5,s*10));
 }
 
 
@@ -198,8 +228,8 @@ class Cube{
 }
   
 class box{
-  constructor(x,y,s){
-    this.x = x; this.y = y; this.s = s; 
+  constructor(x,y,s,h){
+    this.x = x; this.y = y; this.s = s; this.h = h;
   } 
 
   display(){
@@ -207,7 +237,7 @@ class box{
     strokeWeight(2);
     stroke(255);
     fill(0);
-    square(this.x,this.y,this.s);
+    rect(this.x,this.y,this.s,this.h);
     pop();
 
 
