@@ -25,22 +25,29 @@ function setup() {
 
 function initLevel(){
   level=[];
+  let g = height*0.7; // ground height
+  let s = 45; // block size
   // level.push(new box(600,height*0.7 - 45, 800));
-  level.push(new spike(800,height*0.7,0));
-  level.push(new spike(845,height*0.7,0));
-  level.push(new spike(890,height*0.7,0));
 
-  level.push(new spike(1060,height*0.7,0));
-  level.push(new spike( 1710,height*0.7, 45/2));
-  level.push(new spike( 1755,height*0.7, 0));
-  level.push(new spike( 2475,height*0.7, 0));
-  level.push(new spike( 2520,height*0.7, 0));
-  level.push(new box(2565,height*0.7 - 45, 45));
-  level.push(new box(2790,height*0.7 - 45, 45));
-  level.push(new box(2790,height*0.7 - 90, 45));
-  level.push(new box(2925,height*0.7 - 45, 45));
-  level.push(new box(2925,height*0.7 - 90, 45));
-  level.push(new box(2925,height*0.7 - 135, 45));
+  level.push(new spike(1060,g,0));
+  level.push(new spike( 1710,g, s/2));
+  level.push(new spike( 1755,g, 0));
+  level.push(new spike( 2475,g, 0));
+  level.push(new spike( 2520,g, 0));
+  level.push(new box(2565,g - 45, s));
+  level.push(new box(2745,g - 45, s));
+  level.push(new box(2745,g - 90, s));
+  level.push(new box(2925,g - 45, s));
+  level.push(new box(2925,g - 90, s));
+  level.push(new box(2925,g - 135, s));
+  level.push(new spike( 4230,g, 0));
+  level.push(new box(4500,g - 45, s*8));
+  level.push(new spike( 4860,g, s/2));
+  level.push(new spike( 4905,g, s/2));
+  level.push(new spike( 4950,g, s/2));
+  level.push(new box(4995,g - 45, s*10));
+  level.push(new spike(5197,g - 45, 0));
+
 }
 
 
@@ -138,7 +145,9 @@ class Cube{
       // collisions
       for(let o of level){
          let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s);
-         text(player.onGround + " " + player.vel.y +" " + player.pos.y +" " + o.y , width/2, height*0.2);
+         //  text(player.onGround + " " + player.vel.y +" " + player.pos.y +" " + o.y , width/2, height*0.2);
+        strokeWeight();
+         text(player.pos.x, width/2, height/2,);
         //  stroke("green");
         //  line(0,o.y,width,o.y);
         if(hit){
@@ -179,7 +188,7 @@ class Cube{
     if(this.onGround){
       // this.pos.y -= 1 
       this.vel.y = -12;
-      this.rotationSpeed = 6; // rotates 1.6 degrees every frame
+      this.rotationSpeed = 7; // rotates 1.6 degrees every frame
       this.onGround = false;
     }  
      
