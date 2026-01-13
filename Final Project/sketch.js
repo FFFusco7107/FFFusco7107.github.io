@@ -120,9 +120,10 @@ function initLevel(){
   //good
   level.push(new box(s*249,g - s*4, s*7,s));
   level.push(new box(s*256,g - s*4, s*30,s*10));
-  level.push(new box(s*256,g - s*18, s*5,s*10));
-  level.push(new box(s*261,g - s*17, s*14,s*10));
-  level.push(new box(s*275,g - s*18, s*5,s*10));
+  level.push(new box(s*256,g - s*18, s*5,s*11));
+  level.push(new box(s*261,g - s*17, s*7,s*11));
+  level.push(new box(s*268,g - s*17, s*7,s*11));
+  level.push(new box(s*275,g - s*18, s*11,s*11));
 }
 
 
@@ -189,7 +190,7 @@ class Cube{
   constructor(x,y,s){
     this.s = s;
     this.pos = createVector(x,y);
-    this.g = createVector(0,0.9);
+    this.g = createVector(0,1.2);
     this.vel = createVector(0,0);
 
     this.rotation = 0;
@@ -274,16 +275,14 @@ class Cube{
           }
         }
       }
-
-      
  
   } 
   jump(){
     // can only jump when on ground
     if(this.onGround){
       // this.pos.y -= 1 
-      this.vel.y = -12;
-      this.rotationSpeed = 7; // rotates 1.6 degrees every frame
+      this.vel.y = -15;
+      this.rotationSpeed = 7.85; // rotates 7.9 degrees every frame
       this.onGround = false;
     }  
      
@@ -292,6 +291,11 @@ class Cube{
   } 
 }
   
+class Ship{
+  constructor(x,y){
+    this.x = x; this.y = y;   
+  }
+}
 class box{
   constructor(x,y,s,h){
     this.x = x; this.y = y; this.s = s; this.h = h;
