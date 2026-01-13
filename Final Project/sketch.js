@@ -29,55 +29,100 @@ function initLevel(){
   let s = 45; // block size
   // level.push(new box(600,height*0.7 - 45, 800));
 
+  // good
   level.push(new spike(1060,g,0));
   level.push(new spike( s*38,g, s/2));
   level.push(new spike( s*39,g, 0));
   level.push(new spike( s*55,g, 0));
   level.push(new spike( s*56,g, 0));
-  level.push(new box(s*57,g - 45, s,s));
-  level.push(new box(s*61,g - 45, s,s));
-  level.push(new box(s*61,g - 90, s,s));
-  level.push(new box(s*65,g - 45, s,s));
-  level.push(new box(s*65,g - 90, s,s));
-  level.push(new box(s*65,g - 135, s,s));
+
+  // good
+  level.push(new box(s*57,g - s, s,s));
+  level.push(new box(s*61,g - s, s,s));
+  level.push(new box(s*61,g - s*2, s,s));
+  level.push(new box(s*65,g - s, s,s));
+  level.push(new box(s*65,g - s*2, s,s));
+  level.push(new box(s*65,g - s*3, s,s));
+
+  //good
   level.push(new spike( s*94,g, 0));
-  level.push(new box(s*100,g - 45, s*8,s));
+  level.push(new box(s*100,g - s, s*8,s));
   level.push(new spike( s*108,g, s/2));
   level.push(new spike( s*109,g, s/2));
   level.push(new spike( s*110,g, s/2));
-  level.push(new box(s*111,g - 45, s*10,s));
-  level.push(new spike(s*115 + (4/9),g - 45, 0));
+
+  // good
+  level.push(new box(s*111,g - s, s*10,s));
+  level.push(new spike(s*115 + (4/9),g - s, 0));
   level.push(new spike( s*121,g, s/2));
   level.push(new spike( s*122,g, s/2));
   level.push(new spike( s*123,g, s/2));
-  level.push(new box(s*124,g - 90, s*10,s*10));
-  level.push(new spike(s*129,g - 90, 0));
-  level.push(new box(s*137,g - 135, s,s/2));
-  level.push(new box(s*141,g - 180, s,s/2));
-  level.push(new box(s*145,g - 225, s,s/2));
-  level.push(new box(s*149,g - 270, s,s/2));
-  level.push(new box(s*153,g - 315, s,s/2));
-  level.push(new box(s*157,g - 270, s,s));
-  level.push(new box(s*158,g - 270, s,s));
-  level.push(new box(s*159,g - 270, s*20,s*20));
-  level.push(new spike(s*164,g - 270, 0));
-  level.push(new spike(s*165,g - 270, 0));
-  level.push(new spike(s*166,g - 270, 0));
-  level.push(new spike(s*167,g - 270, 0));
-  level.push(new box(s*165,g - 340, s,s/2));
-  level.push(new box(s*166,g - 340, s,s/2));
-  level.push(new spike(s*172,g - 270, 0));
-  level.push(new spike(s*173,g - 270, 0));
-  level.push(new spike(s*174,g - 270, 0));
-  level.push(new spike(s*175,g - 270, 0));
-  level.push(new box(s*173,g - 340, s,s/2));
-  level.push(new box(s*174,g - 340, s,s/2));
-  level.push(new box(s*179,g - 225, s*10,s*10));
-  level.push(new spike(s*182,g - 315, 0));
-  level.push(new spike(s*183,g - 315, 0));
-  level.push(new spike(s*184,g - 315, 0));
-  level.push(new spike(s*185,g - 315, 0));
-  level.push(new box(s*189,g - 270, s*5,s*10));
+
+  // good
+  level.push(new box(s*124,g - s*2, s*10,s*10));
+  level.push(new spike(s*129,g - s*2, 0));
+  level.push(new box(s*137,g - s*3, s,s/2));
+  level.push(new box(s*141,g - s*4, s,s/2));
+  level.push(new box(s*145,g - s*5, s,s/2));
+  level.push(new box(s*149,g - s*6, s,s/2));
+  level.push(new box(s*153,g - s*7, s,s/2));
+
+  // good
+  level.push(new box(s*157,g - s*6, s,s));
+  level.push(new box(s*158,g - s*6, s,s));
+  level.push(new box(s*159,g - s*6, s*20,s*20));
+  level.push(new spike(s*164,g - s*6, 0));
+  level.push(new spike(s*165,g - s*6, 0));
+  level.push(new spike(s*166,g - s*6, 0));
+  level.push(new spike(s*167,g - s*6, 0));
+
+  // good
+  level.push(new box(s*165,g - s*8, s,s/2));
+  level.push(new box(s*166,g - s*8, s,s/2));
+  level.push(new spike(s*172,g - s*6, 0));
+  level.push(new spike(s*173,g - s*6, 0));
+  level.push(new spike(s*174,g - s*6, 0));
+  level.push(new spike(s*175,g - s*6, 0));
+
+  // good
+  level.push(new box(s*173,g - s*8, s,s/2));
+  level.push(new box(s*174,g - s*8, s,s/2));
+  level.push(new box(s*179,g - s*5, s*10,s*10));
+  level.push(new spike(s*182,g - s*7, 0));
+  level.push(new spike(s*183,g - s*7, 0));
+  level.push(new spike(s*184,g - s*7, 0));
+  level.push(new spike(s*185,g - s*7, 0));
+
+  // good
+  level.push(new box(s*189,g - s*6, s*5,s*10));
+  level.push(new spike(s*193,g - s*6, 0));
+  level.push(new box(s*194,g - s*5, s*6,s*10));
+  level.push(new spike(s*194,g - s*5, 0));
+  level.push(new box(s*200,g - s*5, s*4,s));
+  level.push(new box(s*206,g - s*5, s*4,s/2));
+
+  // good
+  level.push(new spike(s*209,g - s*5, 0));
+  level.push(new box(s*211,g - s*4, s*7,s/2));
+  level.push(new spike(s*217,g - s*4, 0));
+  level.push(new box(s*219,g - s*3, s*5,s/2));
+  level.push(new box(s*226,g - s*4, s,s/2));
+  level.push(new box(s*230,g - s*5, s,s/2));
+  level.push(new box(s*234,g - s*6, s,s/2));
+
+  // good
+  level.push(new box(s*238,g - s*7, s,s/2));
+  level.push(new box(s*242,g - s*8, s,s/2));
+  level.push(new box(s*246,g - s*9, s,s/2));
+  level.push(new box(s*250,g - s*10, s,s/2));
+  level.push(new spike(s*250,g - s*10, 0));
+
+  //good
+  level.push(new box(s*249,g - s*4, s*7,s));
+  level.push(new box(s*256,g - s*4, s*30,s*10));
+  level.push(new box(s*256,g - s*18, s*5,s*10));
+  level.push(new box(s*261,g - s*17, s*14,s*10));
+  level.push(new box(s*275,g - s*18, s*5,s*10));
 }
 
 
@@ -108,7 +153,26 @@ function draw() {
   }
 
   else{
+    background(0,100,255, 200);
+    textAlign(CENTER);
+    textSize(50);
+    stroke(100);
+    fill("lime");
+    // pixel font
+    // textFont("");
     text("space to start", width/2, height/2);
+    rectMode(CENTER);
+    fill(0);
+    rect(width/2, height/2 + 40, 300, 50);
+    fill(30);
+    noStroke();
+    rect(width/2 + 3, height/2 + 40, 250, 30)
+    fill(255);
+    textSize(20);
+    text("SPACE", width/2 + 3, height/2 + 44)
+    stroke(1);
+    rectMode(CORNER);
+    
   }
   
 }
@@ -176,8 +240,6 @@ class Cube{
       for(let o of level){
          let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s);
          //  text(player.onGround + " " + player.vel.y +" " + player.pos.y +" " + o.y , width/2, height*0.2);
-        strokeWeight();
-         text(player.pos.x, width/2, height/2,);
         //  stroke("green");
         //  line(0,o.y,width,o.y);
         if(hit){
@@ -195,16 +257,19 @@ class Cube{
             else{
               initLevel();
               this.rotation = 0;
+              loadMusic();
             }
             
           }
           else if(o instanceof spike){ 
+            loadMusic();
             print("spike col");
             //to reset the level
             //just reset or re-create each var and item
             initLevel();
             // sets cube right side up
             this.rotation = 0;
+
             
           }
         }
