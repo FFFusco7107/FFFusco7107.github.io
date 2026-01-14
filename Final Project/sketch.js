@@ -3,11 +3,13 @@
 // Dec 2 2025
 
 let player;
+let playerState;
 let platform;
 let level = [];
 let levelSpeed = 9;
 let mySound;
 let gameStart = false;
+let s = 45;
 
 async function loadMusic(){
   mySound = await loadSound('assets/1-01. Stereo Madness.mp3');
@@ -18,6 +20,7 @@ function setup() {
   // frameRate(10);
   loadMusic();
   player = new Cube(width*0.2,height*0.7, 45);
+  playerState = 0; // 0-cube   1-ship
   initLevel();
 
   
@@ -124,12 +127,16 @@ function initLevel(){
   level.push(new box(s*261,g - s*17, s*7,s*11));
   level.push(new box(s*268,g - s*17, s*7,s*11));
   level.push(new box(s*275,g - s*18, s*11,s*11));
+
+  level.push(new box(s*275,g - s*18, s*11,s*11));
+  level.push(new box(s*319,g - s*10, s,s*3));
+  level.push(new portal(s*20,g - s*2));
 }
 
 
 
 function draw() {
-  background(220); 
+  background(0,150,255); 
   if (gameStart){
   // platform.display();
   
@@ -185,6 +192,8 @@ function keyPressed(){
   }
 }
 
+
+
 class Cube{
   // cube that jumps when pressing spacebar
   constructor(x,y,s){
@@ -210,16 +219,24 @@ class Cube{
     rectMode(CENTER);
     rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
+    rect(0,height*0.7 - (s*11), width, 45);
   }
   move(){
       this.vel.add(this.g);
       this.vel.limit(100);
       this.pos.add(this.vel);
     
+      // If hit roof
+      if(this.pos.y < height*0.7 - (s*11)){
+        initLevel();
+        this.rotation = 0;
+        loadMusic();
+      }
       // If on ground
       if(this.pos.y >= height*0.7){
         this.pos.y = height*0.7; 
         this.vel.y = 0;
+      
 
         if(!this.onGround){
           print("ground collision")
@@ -239,7 +256,7 @@ class Cube{
       // line(0,this.pos.y,width,this.pos.y);
       // collisions
       for(let o of level){
-         let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s);
+         let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s2);
          //  text(player.onGround + " " + player.vel.y +" " + player.pos.y +" " + o.y , width/2, height*0.2);
         //  stroke("green");
         //  line(0,o.y,width,o.y);
@@ -255,12 +272,11 @@ class Cube{
               }
               this.pos.y = o.y; 
             }
-            else{
+            else if(o instanceof box){
               initLevel();
               this.rotation = 0;
               loadMusic();
             }
-            
           }
           else if(o instanceof spike){ 
             loadMusic();
@@ -273,10 +289,17 @@ class Cube{
 
             
           }
+          else{
+              if(player === 0){
+                player = new Ship(player.x, player.y, player.s);
+              }
+              else if(player === 1){
+                player = new Cube(player.x,player.y, player.s);
+              }
         }
       }
- 
   } 
+}
   jump(){
     // can only jump when on ground
     if(this.onGround){
@@ -285,20 +308,41 @@ class Cube{
       this.rotationSpeed = 7.85; // rotates 7.9 degrees every frame
       this.onGround = false;
     }  
-     
-
-
   } 
 }
-  
+
 class Ship{
   constructor(x,y){
     this.x = x; this.y = y;   
   }
+  display(){
+    circle(this.x, this.y, 50);
+  }
+  move(){
+
+  }
 }
+
+class portal{
+  constructor(x,y){
+    this.x = x; this.y = y;
+    this.s = 5; this.s2 = 115;
+  }
+  display(){
+    noStroke();
+    fill("pink");
+    rect(this.x, this.y,this.s,this.s2);
+    
+  }
+  slide(){
+    
+  }
+}
+
 class box{
   constructor(x,y,s,h){
     this.x = x; this.y = y; this.s = s; this.h = h;
+  this.s2 = s;
   } 
 
   display(){
@@ -321,6 +365,7 @@ class box{
 class spike{
   constructor(x,y,s){
     this.x = x; this.y = y; this.s = s;
+    this.s2 = s;
   }
 
   display(){
