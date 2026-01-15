@@ -10,6 +10,7 @@ let levelSpeed = 9;
 let mySound;
 let gameStart = false;
 let s = 45;
+let portalBuffer = -1
 
 async function loadMusic(){
   mySound = await loadSound('assets/1-01. Stereo Madness.mp3');
@@ -130,7 +131,8 @@ function initLevel(){
 
   level.push(new box(s*275,g - s*18, s*11,s*11));
   level.push(new box(s*319,g - s*10, s,s*3));
-  level.push(new portal(s*20,g - s*2));
+  level.push(new portal(s*30,g - s*3)); // s*286 s*6.7
+  level.push(new portal(s*50,g - s*3)); // s*286 s*6.7
 }
 
 
@@ -155,6 +157,8 @@ function draw() {
   // ground 
   fill(0);
   rect(0, height*0.7, width, height);
+
+  portalBuffer--;
 
   
     
@@ -219,19 +223,14 @@ class Cube{
     rectMode(CENTER);
     rect(-this.s/2 + 22,this.s/2 - this.s + 30,this.s/2 + 5, this.s - 40);
     pop();
-    rect(0,height*0.7 - (s*11), width, 45);
+    
   }
   move(){
       this.vel.add(this.g);
       this.vel.limit(100);
       this.pos.add(this.vel);
     
-      // If hit roof
-      if(this.pos.y < height*0.7 - (s*11)){
-        initLevel();
-        this.rotation = 0;
-        loadMusic();
-      }
+
       // If on ground
       if(this.pos.y >= height*0.7){
         this.pos.y = height*0.7; 
@@ -290,12 +289,13 @@ class Cube{
             
           }
           else{
-              if(player === 0){
-                player = new Ship(player.x, player.y, player.s);
-              }
-              else if(player === 1){
-                player = new Cube(player.x,player.y, player.s);
-              }
+            print("portal");
+            if(portalBuffer < 0){
+              player = new Ship(player.pos.x, player.pos.y, player.s);
+              portalBuffer = 20;
+            }
+
+                
         }
       }
   } 
@@ -312,13 +312,62 @@ class Cube{
 }
 
 class Ship{
-  constructor(x,y){
-    this.x = x; this.y = y;   
+  constructor(x,y,s){
+    this.s = s;
+    this.pos = createVector(x,y); 
+    this.g = createVector(0,1.2);
+    this.vel = createVector(0,0);
   }
   display(){
-    circle(this.x, this.y, 50);
+    //ship
+    circle(this.pos.x, this.pos.y, this.s);
+
+
+    // roof
+    rect(0,height*0.7 - (s*11), width, 45);
   }
   move(){
+
+
+    // If hit roof
+    if(this.pos.y < height*0.7 - (s*11)){
+      initLevel();
+      this.rotation = 0;
+      loadMusic();
+    }
+
+    for(let o of level){
+      let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s2);
+      if(hit){
+        if(o instanceof box){
+
+        }
+        else if(o instanceof box){
+          print("box col");
+          loadMusic();
+          initLevel();
+          this.rotation = 0;
+          
+        }
+        else if(o instanceof spike){
+          print("spike col");
+          loadMusic();
+          initLevel();
+          this.rotation = 0;
+          
+        }
+        else{
+          print("portal");
+          if(portalBuffer < 0){
+            player = new Cube(player.x,player.y, player.s);
+            portalBuffer = 20;
+          }
+          
+        }
+      }
+    }
+  }
+  jump(){ // fly up
 
   }
 }
@@ -326,16 +375,17 @@ class Ship{
 class portal{
   constructor(x,y){
     this.x = x; this.y = y;
-    this.s = 5; this.s2 = 115;
+    this.s = 6; this.s2 = 115;
   }
   display(){
     noStroke();
     fill("pink");
     rect(this.x, this.y,this.s,this.s2);
+    stroke(1);
     
   }
   slide(){
-    
+    this.x -= levelSpeed;
   }
 }
 
