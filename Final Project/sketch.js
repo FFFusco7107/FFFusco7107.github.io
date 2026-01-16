@@ -131,8 +131,9 @@ function initLevel(){
 
   level.push(new box(s*275,g - s*18, s*11,s*11));
   level.push(new box(s*319,g - s*10, s,s*3));
-  level.push(new portal(s*30,g - s*3)); // s*286 s*6.7
-  level.push(new portal(s*50,g - s*3)); // s*286 s*6.7
+  level.push(new portal(s*286,g - s*6.7)); // s*286 s*6.7
+  // test portal
+  level.push(new portal(s*10,g - s*3));
 }
 
 
@@ -319,15 +320,55 @@ class Ship{
     this.vel = createVector(0,0);
   }
   display(){
-    //ship
-    circle(this.pos.x, this.pos.y, this.s);
+    // cube in ship
+    strokeWeight(1.5);
+    push();
+    translate(this.pos.x + this.s/2, this.pos.y - this.s /2);
+    rotate(radians(this.angle));
+    fill(255,200,50);
+    square(-this.s /2 + 22, -this.s /2 - 3, this.s - 20);
+    fill(0,255,255);
+    square(-this.s/2 + 27,this.s/2 - this.s + 2, this.s - 40);
+    square(-this.s/2 + 38,this.s/2 - this.s + 2, this.s - 40); 
+    rectMode(CENTER);
+    rect(-this.s/2 + 34,this.s/2 - this.s + 13,this.s/2 - 5, this.s - 42);
+    pop();
 
+    //ship
+    push();
+    translate(this.pos.x + this.s/2, this.pos.y - this.s/2);
+    rotate(radians(this.angle));
+
+    fill(255,200,50);
+    triangle(-12, -5, -12, 25, 15, 10);
+    rect(0, 0, 30, 20);
+    triangle(30, 0, 30, 20, 45, 10);
+
+    fill(0,255,255);
+    rect(-6, -5, 40, 5);
+    rect(-6, -15, 5, 10);
+    pop();
 
     // roof
-    rect(0,height*0.7 - (s*11), width, 45);
+    rect(0, height*0.7 - (s*11), s, width)
+
   }
   move(){
 
+    
+    // gravity for going down
+    this.vel.y += 0.9;
+
+    // hold space -> fly up
+    if(keyIsDown(32)){
+      this.vel.y -= 1.8;
+    }
+
+    //Limit vertical speed
+    this.vel.y = constrain(this.vel.y, -12, 12);
+    //Move ship
+    this.pos.y += this.vel.y;
+    this.angle = map(this.vel.y, -12, 12, -30, 30);
 
     // If hit roof
     if(this.pos.y < height*0.7 - (s*11)){
@@ -336,16 +377,42 @@ class Ship{
       loadMusic();
     }
 
+    // If on ground
+      if(this.pos.y >= height*0.7){
+        this.pos.y = height*0.7; 
+        this.vel.y = 0;
+      
+
+        if(!this.onGround){
+          print("ground collision")
+          this.onGround = true;
+
+          // snaps the cube to nearest right angle (90,180,270,360...)
+          this.rotation = round(this.rotation/90) * 90;
+          this.rotationSpeed = 0;
+        }
+      }
+
     for(let o of level){
       let hit = collideRectRect(this.pos.x,this.pos.y-45,this.s, this.s, o.x, o.y, o.s, o.s2);
       if(hit){
         if(o instanceof box){
-
+           if (this.pos.y - o.y < 45){
+              this.vel.y = 0;
+              if(!this.onGround){
+                this.onGround = true;
+                this.rotation = round(this.rotation/90) * 90;
+                this.rotationSpeed = 0;
+              }
+              this.pos.y = o.y; 
+            }
         }
+
         else if(o instanceof box){
           print("box col");
           loadMusic();
           initLevel();
+          player = new Cube(player.x,player.y, player.s);
           this.rotation = 0;
           
         }
@@ -353,6 +420,7 @@ class Ship{
           print("spike col");
           loadMusic();
           initLevel();
+          player = new Cube(player.x,player.y, player.s);
           this.rotation = 0;
           
         }
@@ -361,6 +429,12 @@ class Ship{
           if(portalBuffer < 0){
             player = new Cube(player.x,player.y, player.s);
             portalBuffer = 20;
+            player.pos.x = width*0.2;
+            player.pos.y = height*0.7;
+            player.vel.y = 0;
+            player.rotation = 0;
+            player.rotationSpeed = 0;
+            player.onGround = true;
           }
           
         }
