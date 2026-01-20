@@ -1,6 +1,10 @@
 // Geometry Dash Capstone
 // Lucas F.
 // Dec 2 2025
+<<<<<<< HEAD
+=======
+// 
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
 
 let player;
 let playerState;
@@ -27,6 +31,14 @@ function setup() {
   
 }
 
+<<<<<<< HEAD
+=======
+function restartSong(){
+  mySound.stop();
+  mySound.play();
+}
+
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
 function initLevel(){
   level=[];
   let g = height*0.7; // ground height
@@ -210,10 +222,15 @@ function initLevel(){
   level.push(new spike(s*418,g - s*10, 0,1));
   level.push(new spike(s*419,g - s*10, 0,1));
   level.push(new spike(s*420,g - s*10, 0,1));
+<<<<<<< HEAD
   // level.push(new box(s*421,g - s*11, s*5,s*3));
   // level.push(new box(s*426,g - s*11, s*4,s*3));
   // level.push(new box(s*430,g - s*11, s*5,s*3));
   level.push(new box(s*421,g - s*3, s*14,s*3));
+=======
+  level.push(new box(s*421,g - s*3, s*14,s*3));
+  level.push(new box(s*435,g - s*11, s,s*5));
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
   level.push(new portal(s*435,g - s*5.7));
   level.push(new box(s*435,g - s*2, s*15,s*2));
   level.push(new spike(s*451,g, 0,0));
@@ -296,7 +313,85 @@ function initLevel(){
 
   level.push(new spike(s*538,g, 0,0));
   level.push(new spike(s*539,g, 0,0));
+<<<<<<< HEAD
   level.push(new box(s*5540,g - s, s,s));
+=======
+  level.push(new box(s*540,g - s, s,s));
+
+  level.push(new spike(s*541,g, s/2,0));
+  level.push(new spike(s*542,g, s/2,0));
+  level.push(new spike(s*543,g, s/2,0));
+  level.push(new spike(s*544,g, s/2,0));
+  level.push(new spike(s*545,g, s/2,0));
+
+  level.push(new box(s*543,g - s*2, s,s/2));
+  level.push(new box(s*544,g - s*2, s,s/2));
+
+  level.push(new box(s*546,g - s, s*3,s));
+
+  level.push(new spike(s*549,g, s/2,0));
+  level.push(new spike(s*550,g, s/2,0));
+  level.push(new spike(s*551,g, s/2,0));
+  level.push(new spike(s*552,g, s/2,0));
+  level.push(new spike(s*553,g, s/2,0));
+  level.push(new spike(s*554,g, s/2,0));
+  level.push(new spike(s*555,g, s/2,0));
+  level.push(new spike(s*556,g, s/2,0));
+  level.push(new spike(s*557,g, s/2,0));
+
+  level.push(new box(s*551,g - s*2, s,s/2));
+  level.push(new box(s*552,g - s*2, s,s/2));
+  level.push(new box(s*555,g - s*3, s,s/2));
+  level.push(new box(s*556,g - s*3, s,s/2));
+  level.push(new box(s*558,g - s, s*3,s));
+  level.push(new spike(s*561,g, 0,0));
+  level.push(new spike(s*562,g, 0,0));
+
+  level.push(new box(s*569,g - s*6, s*2,s));
+  level.push(new spike(s*569,g, 0,0));
+  level.push(new spike(s*570,g, 0,0));
+  level.push(new spike(s*569,g - s*5, 0,1));
+  level.push(new spike(s*570,g - s*5, 0,1));
+
+  level.push(new box(s*577,g - s*6, s*3,s));
+  level.push(new spike(s*577,g, 0,0));
+  level.push(new spike(s*578,g, 0,0));
+  level.push(new spike(s*579,g, 0,0));
+  level.push(new spike(s*577,g - s*5, 0,1));
+  level.push(new spike(s*578,g - s*5, 0,1));
+  level.push(new spike(s*579,g - s*5, 0,1));
+
+  level.push(new box(s*585,g - s*6, s,s));
+  level.push(new spike(s*585,g, 0,0));
+  level.push(new spike(s*585,g - s*4, 0,1));
+  level.push(new box(s*592,g - s*6, s,s));
+  level.push(new spike(s*592,g, 0,0));
+  level.push(new spike(s*592,g - s*4, 0,1));
+
+  level.push(new spike(s*600,g - s, 0,0));
+  level.push(new spike(s*601,g - s, 0,0));
+  level.push(new box(s*602,g - s, s,s));
+  level.push(new box(s*606,g - s*2, s,s*2));
+  level.push(new box(s*610,g - s*3, s,s*3));
+  level.push(new box(s*614,g - s*4, s,s*4));
+  level.push(new box(s*617,g - s*3, s,s/2));
+  level.push(new box(s*619,g - s*2, s,s/2));
+  level.push(new box(s*621,g - s*1, s,s/2));
+
+  level.push(new spike(s*627,g - s, 0,0));
+  level.push(new spike(s*628,g - s, 0,0));
+  level.push(new spike(s*634,g - s*2, 0,1));
+  level.push(new spike(s*635,g - s*2, 0,1));
+  level.push(new spike(s*636,g - s*2, 0,1));
+  level.push(new spike(s*637,g - s*2, 0,1));
+  level.push(new box(s*634,g - s*3, s,s));
+  level.push(new box(s*635,g - s*3, s,s));
+  level.push(new box(s*636,g - s*3, s,s));
+  level.push(new box(s*637,g - s*3, s,s));
+
+  
+  
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
 
 
 }
@@ -441,6 +536,7 @@ class Cube{
               this.pos.y = o.y; 
             }
             else if(o instanceof box){
+<<<<<<< HEAD
               initLevel();
               this.rotation = 0;
               loadMusic();
@@ -448,6 +544,15 @@ class Cube{
           }
           else if(o instanceof spike){ 
             loadMusic();
+=======
+              restartSong();
+              initLevel();
+              this.rotation = 0;
+            }
+          }
+          else if(o instanceof spike){ 
+            restartSong();
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             print("spike col");
             //to reset the level
             //just reset or re-create each var and item
@@ -461,7 +566,11 @@ class Cube{
             print("portal");
             if(portalBuffer < 0){
               player = new Ship(player.pos.x, player.pos.y, player.s);
+<<<<<<< HEAD
               portalBuffer = 20;
+=======
+              portalBuffer = 10;
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             }
 
                 
@@ -544,7 +653,11 @@ class Ship{
     if(this.pos.y < height*0.7 - (s*11) + 45){
       initLevel();
       this.rotation = 0;
+<<<<<<< HEAD
       loadMusic();
+=======
+      restartSong();
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
       player = new Cube(player.pos.x,player.pos.y, player.s);
       player.vel = createVector(0,0);
       portalBuffer = 20;
@@ -586,7 +699,11 @@ class Ship{
               }
               else if(o instanceof box){
                 print("box col");
+<<<<<<< HEAD
                 loadMusic();
+=======
+                restartSong();
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
                 initLevel();
                 player = new Cube(player.pos.x,player.pos.y, player.s);
                 player.vel = createVector(0,0);
@@ -600,7 +717,11 @@ class Ship{
           }
           else if(o instanceof spike){
             print("spike col");
+<<<<<<< HEAD
             loadMusic();
+=======
+            restartSong();
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             initLevel();
             player = new Cube(width*0.2,height*0.7, player.s);
             player.vel = createVector(0,0);
@@ -628,7 +749,11 @@ class Ship{
               // do not mark onGround yet — let collision resolve it
               player.onGround = false;
 
+<<<<<<< HEAD
               portalBuffer = 20;
+=======
+              portalBuffer = 10;
+>>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             }
             
           }
