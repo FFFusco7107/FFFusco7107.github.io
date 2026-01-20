@@ -1,6 +1,7 @@
 // Geometry Dash Capstone
 // Lucas F.
 // Dec 2 2025
+// 
 
 let player;
 let playerState;
