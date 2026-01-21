@@ -931,15 +931,11 @@ class Ship{
             if(portalBuffer < 0){
               player = new Cube(this.pos.x, this.pos.y, this.s);
 
-              // reset cube motion
+              // reset cube
               player.vel = createVector(0, 0);
               player.rotation = 0;
               player.rotationSpeed = 0;
-
-              // IMPORTANT: lift cube slightly ABOVE surfaces
               player.pos.y -= 5;
-
-              // do not mark onGround yet — let collision resolve it
               player.onGround = false;
               portalBuffer = 10;
             }
