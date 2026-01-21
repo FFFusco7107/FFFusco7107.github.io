@@ -1,10 +1,6 @@
 // Geometry Dash Capstone
 // Lucas F.
 // Dec 2 2025
-<<<<<<< HEAD
-=======
-// 
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
 
 let player;
 let playerState;
@@ -15,9 +11,22 @@ let mySound;
 let gameStart = false;
 let s = 45;
 let portalBuffer = -1
+let pixelFont;
+let gameWon = false;
+let levelEndX;
+
+// back button
+let backX = 20;
+let backY = 20;
+let backW = 90;
+let backH = 40;
 
 async function loadMusic(){
   mySound = await loadSound('assets/1-01. Stereo Madness.mp3');
+}
+
+function preload(){
+  pixelFont = loadFont("assets/PressStart2P-Regular.ttf");
 }
 
 function setup() { 
@@ -31,14 +40,11 @@ function setup() {
   
 }
 
-<<<<<<< HEAD
-=======
 function restartSong(){
   mySound.stop();
   mySound.play();
 }
 
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
 function initLevel(){
   level=[];
   let g = height*0.7; // ground height
@@ -62,6 +68,7 @@ function initLevel(){
 
   //good
   level.push(new spike( s*94,g, 0,0));
+  background(172,2,201);
   level.push(new box(s*100,g - s, s*8,s));
   level.push(new spike( s*108,g, s/2,0));
   level.push(new spike( s*109,g, s/2,0));
@@ -222,15 +229,11 @@ function initLevel(){
   level.push(new spike(s*418,g - s*10, 0,1));
   level.push(new spike(s*419,g - s*10, 0,1));
   level.push(new spike(s*420,g - s*10, 0,1));
-<<<<<<< HEAD
   // level.push(new box(s*421,g - s*11, s*5,s*3));
   // level.push(new box(s*426,g - s*11, s*4,s*3));
   // level.push(new box(s*430,g - s*11, s*5,s*3));
   level.push(new box(s*421,g - s*3, s*14,s*3));
-=======
-  level.push(new box(s*421,g - s*3, s*14,s*3));
   level.push(new box(s*435,g - s*11, s,s*5));
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
   level.push(new portal(s*435,g - s*5.7));
   level.push(new box(s*435,g - s*2, s*15,s*2));
   level.push(new spike(s*451,g, 0,0));
@@ -313,10 +316,7 @@ function initLevel(){
 
   level.push(new spike(s*538,g, 0,0));
   level.push(new spike(s*539,g, 0,0));
-<<<<<<< HEAD
-  level.push(new box(s*5540,g - s, s,s));
-=======
-  level.push(new box(s*540,g - s, s,s));
+   level.push(new box(s*540,g - s, s,s));
 
   level.push(new spike(s*541,g, s/2,0));
   level.push(new spike(s*542,g, s/2,0));
@@ -350,26 +350,28 @@ function initLevel(){
   level.push(new box(s*569,g - s*6, s*2,s));
   level.push(new spike(s*569,g, 0,0));
   level.push(new spike(s*570,g, 0,0));
-  level.push(new spike(s*569,g - s*5, 0,1));
-  level.push(new spike(s*570,g - s*5, 0,1));
+  level.push(new spike(s*569,g - s*4, 0,1));
+  level.push(new spike(s*570,g - s*4, 0,1));
 
+  // triple spike
   level.push(new box(s*577,g - s*6, s*3,s));
   level.push(new spike(s*577,g, 0,0));
   level.push(new spike(s*578,g, 0,0));
   level.push(new spike(s*579,g, 0,0));
-  level.push(new spike(s*577,g - s*5, 0,1));
-  level.push(new spike(s*578,g - s*5, 0,1));
-  level.push(new spike(s*579,g - s*5, 0,1));
+  level.push(new spike(s*577,g - s*4, 0,1));
+  level.push(new spike(s*578,g - s*4, 0,1));
+  level.push(new spike(s*579,g - s*4, 0,1));
 
   level.push(new box(s*585,g - s*6, s,s));
   level.push(new spike(s*585,g, 0,0));
   level.push(new spike(s*585,g - s*4, 0,1));
+
   level.push(new box(s*592,g - s*6, s,s));
   level.push(new spike(s*592,g, 0,0));
   level.push(new spike(s*592,g - s*4, 0,1));
 
-  level.push(new spike(s*600,g - s, 0,0));
-  level.push(new spike(s*601,g - s, 0,0));
+  level.push(new spike(s*600,g, 0,0));
+  level.push(new spike(s*601,g, 0,0));
   level.push(new box(s*602,g - s, s,s));
   level.push(new box(s*606,g - s*2, s,s*2));
   level.push(new box(s*610,g - s*3, s,s*3));
@@ -378,22 +380,114 @@ function initLevel(){
   level.push(new box(s*619,g - s*2, s,s/2));
   level.push(new box(s*621,g - s*1, s,s/2));
 
-  level.push(new spike(s*627,g - s, 0,0));
-  level.push(new spike(s*628,g - s, 0,0));
+  level.push(new spike(s*627,g, 0,0));
+  level.push(new spike(s*628,g, 0,0));
   level.push(new spike(s*634,g - s*2, 0,1));
   level.push(new spike(s*635,g - s*2, 0,1));
   level.push(new spike(s*636,g - s*2, 0,1));
   level.push(new spike(s*637,g - s*2, 0,1));
-  level.push(new box(s*634,g - s*3, s,s));
-  level.push(new box(s*635,g - s*3, s,s));
-  level.push(new box(s*636,g - s*3, s,s));
-  level.push(new box(s*637,g - s*3, s,s));
+  level.push(new box(s*634,g - s*4, s,s));
+  level.push(new box(s*635,g - s*4, s,s));
+  level.push(new box(s*636,g - s*4, s,s));
+  level.push(new box(s*637,g - s*4, s,s));
 
-  
-  
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
+  level.push(new spike(s*642,g, 0,0));
+  level.push(new box(s*643,g - s, s,s));
 
+  level.push(new box(s*653,g - s, s*4,s/2));
+  level.push(new box(s*659,g - s*2, s,s/2));
+  level.push(new box(s*663,g - s*3, s,s/2));
+  level.push(new box(s*667,g - s*4, s,s/2));
+  level.push(new box(s*671,g - s*5, s*4,s/2));
 
+  level.push(new box(s*676,g - s*4, s,s));
+  level.push(new box(s*678,g - s*3, s,s));
+  level.push(new box(s*680,g - s*2, s,s));
+  level.push(new box(s*682,g - s, s,s));
+  level.push(new box(s*683,g - s, s,s));
+
+  level.push(new box(s*676,g - s*7, s,s));
+  level.push(new box(s*678,g - s*6, s,s));
+  level.push(new box(s*680,g - s*5, s,s));
+  level.push(new box(s*682,g - s*4, s,s));
+
+  level.push(new box(s*686,g - s*2, s*2,s/2));
+  level.push(new box(s*689,g - s*2, s*3,s/2));
+  level.push(new spike(s*689,g - s*2, 0,0));
+
+  level.push(new box(s*694,g - s*3, s*4,s/2));
+  level.push(new box(s*699,g - s*2, s,s/2));
+  level.push(new box(s*701,g - s, s*3,s/2));
+  level.push(new spike(s*704,g, 0,0));
+  level.push(new spike(s*705,g, 0,0));
+
+  // triple spike
+  level.push(new box(s*714,g - s*6, s*3,s));
+  level.push(new spike(s*714,g, 0,0));
+  level.push(new spike(s*715,g, 0,0));
+  level.push(new spike(s*716,g, 0,0));
+  level.push(new spike(s*714,g - s*4, 0,1));
+  level.push(new spike(s*715,g - s*4, 0,1));
+  level.push(new spike(s*716,g - s*4, 0,1));
+
+  level.push(new box(s*728,g - s, s,s));
+  level.push(new box(s*729,g - s, s*2,s/2));
+  level.push(new box(s*734,g - s, s,s/2));
+  level.push(new box(s*738,g - s, s*2,s/2));
+  level.push(new box(s*740,g - s, s,s));
+  level.push(new box(s*741,g - s*2, s,s*2));
+  level.push(new box(s*742,g - s*2, s*2,s/2));
+  level.push(new box(s*746,g - s*3, s*2,s/2));
+  level.push(new box(s*749,g - s*2, s,s/2));
+  level.push(new box(s*751,g - s, s*3,s/2));
+  level.push(new box(s*756,g - s*2, s*2,s/2));
+
+  level.push(new spike(s*759,g - s*2, 0,0));
+  level.push(new box(s*759,g - s*2, s,s/2));
+  level.push(new box(s*761,g - s*2, s*4,s/2));
+  level.push(new spike(s*766,g - s*2, 0,0));
+  level.push(new box(s*766,g - s*2, s,s/2));
+
+  level.push(new box(s*768,g - s*2, s*2,s/2));
+  level.push(new box(s*772,g - s*3, s*3,s/2));
+  level.push(new spike(s*774,g - s*3, 0,0));
+  level.push(new box(s*776,g - s*2, s*3,s/2));
+
+  level.push(new box(s*780,g - s*3, s,s*3));
+  level.push(new box(s*780,g - s*10, s,s*3));
+  level.push(new portal(s*780,g - s*5.7));
+
+  // last ship part
+  level.push(new box(s*791,g - s, s,s));
+  level.push(new box(s*792,g - s*2, s,s));
+  level.push(new box(s*793,g - s*3, s*6,s));
+  level.push(new box(s*799,g - s*2, s,s));
+  level.push(new box(s*800,g - s, s,s));
+
+  level.push(new box(s*791,g - s*11, s,s));
+  level.push(new box(s*792,g - s*10, s,s));
+  level.push(new box(s*793,g - s*9, s*6,s));
+  level.push(new box(s*799,g - s*10, s,s));
+  level.push(new box(s*800,g - s*11, s,s));
+
+  level.push(new box(s*808,g - s, s,s));
+  level.push(new box(s*809,g - s*2, s,s));
+  level.push(new box(s*810,g - s*3, s*6,s));
+  level.push(new box(s*816,g - s*2, s,s));
+  level.push(new box(s*817,g - s, s,s));
+
+  level.push(new box(s*808,g - s*11, s,s));
+  level.push(new box(s*809,g - s*10, s,s));
+  level.push(new box(s*810,g - s*9, s*6,s));
+  level.push(new box(s*816,g - s*10, s,s));
+  level.push(new box(s*817,g - s*11, s,s));
+
+  level.push(new box(s*825,g - s*4, s*3,s*4));
+  level.push(new box(s*841,g - s*11, s*3,s*4));
+
+  level.push(new box(s*850,g - s*3, s*12,s*3));
+
+  levelEndX = level[level.length - 1].x;
 }
 
 
@@ -402,10 +496,9 @@ function draw() {
   background(0,150,255); 
   if (gameStart){
   // platform.display();
-  
-  
   player.display(); 
   player.move();
+  drawProgressBar();
   for(let o of level){ 
     o.display();
     o.slide();  
@@ -421,19 +514,63 @@ function draw() {
 
   portalBuffer--;
 
-  
+  let lastObj = level[level.length - 1];
+  if(lastObj.x + lastObj.s < 0 && !gameWon){
+    winlevel();
+  }
+  drawBackButton();
     
   }
 
   else{
+    if(gameWon){
+      background(0);
+      textAlign(CENTER);
+      textSize(60);
+      fill("yellow");
+      text("LEVEL COMPLETE!", width/2, height/2);
+      textSize(28);
+      fill("white");
+      text("Nice job!", width/2, height/2 + 60);
+      textSize(24);
+      text("Press SPACE to play again", width/2, height/2 + 120);
+      drawBackButton();
+      return;
+    }
     background(0,100,255, 200);
-    textAlign(CENTER);
-    textSize(50);
-    stroke(100);
+
+    //reset text 
+    textAlign(CENTER,CORNER);
+    textFont(pixelFont);
+    strokeWeight(1);
+    stroke(0);
+    fill(255);
+    
+    // Main title
+    textSize(60);
+    stroke(255);
+    strokeWeight(10);
+    noFill();
+    text("GEOMETRY DASH!", width/2, height/2 - 100);
+    noFill();
+    stroke(0);
+    strokeWeight(6);
+    text("GEOMETRY DASH!", width/2, height/2 - 100);
+    noStroke();
     fill("lime");
-    // pixel font
-    // textFont("");
+    text("GEOMETRY DASH!", width/2, height/2 - 100);
+
+    // space to start
+    textSize(40);
+    noFill();
+    stroke(0);
+    strokeWeight(6);
     text("space to start", width/2, height/2);
+    noStroke();
+    fill("lime");
+    text("space to start", width/2, height/2);
+
+    // space Key
     rectMode(CENTER);
     fill(0);
     rect(width/2, height/2 + 40, 300, 50);
@@ -442,7 +579,7 @@ function draw() {
     rect(width/2 + 3, height/2 + 40, 250, 30)
     fill(255);
     textSize(20);
-    text("SPACE", width/2 + 3, height/2 + 44)
+    text("SPACE", width/2 + 3, height/2 + 50)
     stroke(1);
     rectMode(CORNER);
     
@@ -451,13 +588,91 @@ function draw() {
 }
 
 function keyPressed(){
+  if(gameWon){
+    gameWon = false;
+    initLevel();
+    player = new Cube(width*0.2,height*0.7,45);
+    mySound.play();
+    gameStart = true;
+    return;
+  }
   if(!gameStart){
     gameStart = true;
     mySound.play();
   }
 }
 
+function drawProgressBar(){
+  let lastObj = level[level.length - 1];
+  let traveled = levelEndX - lastObj.x;
+  let total = levelEndX - (-lastObj.s);
 
+  let percent = constrain((traveled / total) * 100, 0, 100);
+
+  // draw bar
+  noStroke();
+  fill(0, 0, 0, 150);
+  rect(width*0.25, 20, width*0.5, 20, 10);
+
+  fill(0,255,0);
+  rect(width*0.25, 20, (width*0.5) * (percent/100), 20, 10);
+
+  // draw percent
+  fill(255);
+  textSize(14);
+  textAlign(CENTER, CENTER);
+  text(int(percent) + "%", width/2, 30);
+}
+
+function winlevel(){
+  gameWon = true;
+  gameStart = false;
+  mySound.stop();
+}
+
+function mousePressed(){
+  // only when button is visible
+  if(gameStart || gameWon){
+    if(mouseX > backX && mouseX < backX + backW &&
+       mouseY > backY && mouseY < backY + backH){
+
+      // Stop music
+      mySound.stop();
+
+      // Reset flags
+      gameStart = false;
+      gameWon = false;
+
+      // Reset level + player
+      initLevel();
+      player = new Cube(width*0.2,height*0.7,45);
+      portalBuffer = -1;
+    }
+  }
+}
+
+function drawBackButton(){
+  // draw a back button that changes color when 
+  // mouse is over button
+  if(mouseX > backX && mouseX < backX + backW &&
+     mouseY > backY && mouseY < backY + backH){
+    fill(80);
+  } else {
+    fill(50);
+  }
+
+  stroke(255);
+  strokeWeight(2);
+  rect(backX, backY, backW, backH, 5);
+
+  noStroke();
+  fill(255);
+  textSize(16);
+  textAlign(CENTER,CENTER);
+  textFont(pixelFont);
+  text("BACK", backX + backW/2, backY + backH/2);
+
+}
 
 class Cube{
   // cube that jumps when pressing spacebar
@@ -475,6 +690,7 @@ class Cube{
     push();
     translate(this.pos.x + this.s/2, this.pos.y - this.s /2);
     rotate(radians(this.rotation));
+    stroke(0);
     strokeWeight(2);
     fill(255,200,50);
     square(-this.s /2, -this.s /2, this.s);
@@ -536,23 +752,13 @@ class Cube{
               this.pos.y = o.y; 
             }
             else if(o instanceof box){
-<<<<<<< HEAD
               initLevel();
               this.rotation = 0;
-              loadMusic();
-            }
-          }
-          else if(o instanceof spike){ 
-            loadMusic();
-=======
               restartSong();
-              initLevel();
-              this.rotation = 0;
             }
           }
           else if(o instanceof spike){ 
             restartSong();
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             print("spike col");
             //to reset the level
             //just reset or re-create each var and item
@@ -566,11 +772,7 @@ class Cube{
             print("portal");
             if(portalBuffer < 0){
               player = new Ship(player.pos.x, player.pos.y, player.s);
-<<<<<<< HEAD
-              portalBuffer = 20;
-=======
               portalBuffer = 10;
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             }
 
                 
@@ -604,6 +806,7 @@ class Ship{
     push();
     translate(this.pos.x + this.s/2, this.pos.y - this.s /2);
     rotate(radians(this.angle));
+    stroke(0);
     fill(255,200,50);
     square(-this.s /2 + 22, -this.s /2 - 3, this.s - 20);
     fill(0,255,255);
@@ -618,6 +821,7 @@ class Ship{
     translate(this.pos.x + this.s/2, this.pos.y - this.s/2);
     rotate(radians(this.angle));
 
+    stroke(0);
     fill(255,200,50);
     triangle(-12, -5, -12, 25, 15, 10);
     rect(0, 0, 30, 20);
@@ -629,6 +833,7 @@ class Ship{
     pop();
 
     // roof
+    fill(0);
     rect(0, height*0.7 - (s*21), width, s*10)
 
   }
@@ -653,11 +858,7 @@ class Ship{
     if(this.pos.y < height*0.7 - (s*11) + 45){
       initLevel();
       this.rotation = 0;
-<<<<<<< HEAD
-      loadMusic();
-=======
       restartSong();
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
       player = new Cube(player.pos.x,player.pos.y, player.s);
       player.vel = createVector(0,0);
       portalBuffer = 20;
@@ -699,11 +900,7 @@ class Ship{
               }
               else if(o instanceof box){
                 print("box col");
-<<<<<<< HEAD
-                loadMusic();
-=======
                 restartSong();
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
                 initLevel();
                 player = new Cube(player.pos.x,player.pos.y, player.s);
                 player.vel = createVector(0,0);
@@ -717,11 +914,7 @@ class Ship{
           }
           else if(o instanceof spike){
             print("spike col");
-<<<<<<< HEAD
-            loadMusic();
-=======
             restartSong();
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             initLevel();
             player = new Cube(width*0.2,height*0.7, player.s);
             player.vel = createVector(0,0);
@@ -748,12 +941,7 @@ class Ship{
 
               // do not mark onGround yet — let collision resolve it
               player.onGround = false;
-
-<<<<<<< HEAD
-              portalBuffer = 20;
-=======
               portalBuffer = 10;
->>>>>>> d2a8b3c8af29909b4c4c74e5c5746a4bf2966269
             }
             
           }
@@ -807,7 +995,7 @@ class box{
 }
 
 class spike{
-  constructor(x,y,s, r){
+  constructor(x,y,s,r){
     this.x = x; this.y = y; this.s = s;
     this.s2 = s; this. rotation = r;
   }
