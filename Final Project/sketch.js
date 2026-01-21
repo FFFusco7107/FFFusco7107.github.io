@@ -523,21 +523,21 @@ function draw() {
   }
 
   else{
+    background(0,100,255, 200);
     if(gameWon){
-      background(0);
       textAlign(CENTER);
       textSize(60);
-      fill("yellow");
+      fill("lime");
       text("LEVEL COMPLETE!", width/2, height/2);
       textSize(28);
-      fill("white");
+      fill("lime");
       text("Nice job!", width/2, height/2 + 60);
       textSize(24);
       text("Press SPACE to play again", width/2, height/2 + 120);
       drawBackButton();
       return;
     }
-    background(0,100,255, 200);
+    
 
     //reset text 
     textAlign(CENTER,CORNER);
